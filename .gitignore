@@ -124,8 +124,8 @@ output/
 */*ckpt*
 
 #models and finetuned models
-model/*
-finetuned_model/*
+model/
+finetuned_model/
 
 #DS_Store
 *.DS_Store
