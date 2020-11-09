@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>camembert_bsv_2_5</title>
+<title>camembert_tuto</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13099,7 +13099,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -13125,7 +13125,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">DATA_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;./data/&#39;</span><span class="p">)</span>
@@ -13144,7 +13144,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/labeled_data.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/bsv_chunk256_ba_mld_1201-1500.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13154,7 +13154,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">val_set</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -13179,8 +13179,8 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Nombre de commentaires dans le val_set: 65
-Nombre de commentaires dans le train_set: 258
+<pre>Nombre de commentaires dans le val_set: 860
+Nombre de commentaires dans le train_set: 3441
 </pre>
 </div>
 </div>
@@ -13194,7 +13194,7 @@ Nombre de commentaires dans le train_set: 258
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./labels/labels.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -13207,12 +13207,12 @@ Nombre de commentaires dans le train_set: 258
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_texts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/raw_data.csv&#39;</span><span class="p">)</span>
-<span class="n">all_texts</span> <span class="o">=</span> <span class="n">df_texts</span><span class="p">[</span><span class="s1">&#39;caption&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nombre de commentaires:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_texts</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_texts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/bsv_chunk256_raw_1001-1200.csv&#39;</span><span class="p">)</span>
+<span class="n">all_texts</span> <span class="o">=</span> <span class="n">df_texts</span><span class="p">[</span><span class="s1">&#39;report_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nombre de bloc de texte:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_texts</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13229,7 +13229,7 @@ Nombre de commentaires dans le train_set: 258
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Nombre de commentaires: 3899
+<pre>Nombre de bloc de texte: 2801
 </pre>
 </div>
 </div>
@@ -13247,7 +13247,7 @@ Nombre de commentaires dans le train_set: 258
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">databunch_lm</span> <span class="o">=</span> <span class="n">BertLMDataBunch</span><span class="o">.</span><span class="n">from_raw_corpus</span><span class="p">(</span>
@@ -13290,8 +13290,8 @@ Nombre de commentaires dans le train_set: 258
                 background: #F44336;
             }
         </style>
-      <progress value='3509' class='' max='3509' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [3509/3509 00:00<00:00]
+      <progress value='2520' class='' max='2520' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [2520/2520 00:00<00:00]
     </div>
     
 </div>
@@ -13319,8 +13319,8 @@ Nombre de commentaires dans le train_set: 258
                 background: #F44336;
             }
         </style>
-      <progress value='390' class='' max='390' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [390/390 00:00<00:00]
+      <progress value='281' class='' max='281' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [281/281 00:00<00:00]
     </div>
     
 </div>
@@ -13340,7 +13340,7 @@ Nombre de commentaires dans le train_set: 258
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm_learner</span> <span class="o">=</span> <span class="n">BertLMLearner</span><span class="o">.</span><span class="n">from_pretrained_model</span><span class="p">(</span>
@@ -13381,7 +13381,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1">#was 30</span>
@@ -13433,7 +13433,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
             }
         </style>
       <progress value='4' class='' max='4' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [4/4 00:23<00:00]
+      100.00% [4/4 00:24<00:00]
     </div>
     
 </div>
@@ -13474,7 +13474,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
             }
         </style>
       <progress value='4' class='' max='4' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [4/4 00:22<00:00]
+      100.00% [4/4 00:25<00:00]
     </div>
     
 </div>
@@ -13503,7 +13503,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
             }
         </style>
       <progress value='4' class='' max='4' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [4/4 00:22<00:00]
+      100.00% [4/4 00:23<00:00]
     </div>
     
 </div>
@@ -13532,7 +13532,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
             }
         </style>
       <progress value='4' class='' max='4' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [4/4 00:22<00:00]
+      100.00% [4/4 00:25<00:00]
     </div>
     
 </div>
@@ -13541,13 +13541,13 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(142, 2.2955120315014477)</pre>
+<pre>(142, 2.301709981031821)</pre>
 </div>
 
 </div>
@@ -13558,7 +13558,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm_learner</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
@@ -13603,13 +13603,13 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;loss&#39;: 0.11761431582272053, &#39;perplexity&#39;: 1.1248102188110352}</pre>
+<pre>{&#39;loss&#39;: 0.11850780993700027, &#39;perplexity&#39;: 1.1258156299591064}</pre>
 </div>
 
 </div>
@@ -13620,10 +13620,23 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm_learner</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">del</span> <span class="n">lm_learner</span>
 </pre></div>
 
     </div>
@@ -13640,7 +13653,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">databunch</span> <span class="o">=</span> <span class="n">BertDataBunch</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">LABEL_PATH</span><span class="p">,</span>
@@ -13648,10 +13661,10 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                           <span class="n">train_file</span><span class="o">=</span><span class="s1">&#39;train_set.csv&#39;</span><span class="p">,</span>
                           <span class="n">val_file</span><span class="o">=</span><span class="s1">&#39;val_set.csv&#39;</span><span class="p">,</span>
                           <span class="n">label_file</span><span class="o">=</span><span class="s1">&#39;labels.txt&#39;</span><span class="p">,</span>
-                          <span class="n">text_col</span><span class="o">=</span><span class="s1">&#39;review&#39;</span><span class="p">,</span>
-                          <span class="n">label_col</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cadre/atmosphère&#39;</span><span class="p">,</span><span class="s1">&#39;probleme technique&#39;</span><span class="p">,</span><span class="s2">&quot;temps d&#39;attente&quot;</span><span class="p">,</span><span class="s1">&#39;accueil/relation commerciale&#39;</span><span class="p">],</span>
-                          <span class="n">batch_size_per_gpu</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                          <span class="n">max_seq_length</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span>
+                          <span class="n">text_col</span><span class="o">=</span><span class="s1">&#39;report_text&#39;</span><span class="p">,</span>
+                          <span class="n">label_col</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bioagressor&#39;</span><span class="p">,</span><span class="s1">&#39;Disease&#39;</span><span class="p">],</span>
+                          <span class="n">batch_size_per_gpu</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                          <span class="n">max_seq_length</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
                           <span class="n">multi_gpu</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">multi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                           <span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;camembert-base&#39;</span><span class="p">)</span>
@@ -13671,7 +13684,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;fbeta&#39;</span><span class="p">,</span> <span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="n">fbeta</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span> <span class="s1">&#39;function&#39;</span><span class="p">:</span> <span class="n">roc_auc</span><span class="p">}]</span>
@@ -13686,7 +13699,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># issue fast-bert pos_weight &lt;= downgrade to 1.9.1 solve the prob</span>
@@ -13734,10 +13747,10 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl_learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="c1"># was 30</span>
             <span class="n">lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span>
             <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">schedule_type</span><span class="o">=</span><span class="s2">&quot;warmup_cosine&quot;</span><span class="p">,</span>
@@ -13785,8 +13798,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:13<00:00]
     </div>
     
 </div>
@@ -13798,608 +13811,11 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     <div class="prompt"></div>
 
 
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
-    </div>
-    
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
-    </div>
-    
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/shufan/tools/anaconda3/envs/fastCmb/lib/python3.7/site-packages/torch/optim/lr_scheduler.py:231: UserWarning: To get the last learning rate computed by the scheduler, please use `get_last_lr()`.
+  warnings.warn(&#34;To get the last learning rate computed by the scheduler, &#34;
+</pre>
 </div>
-
 </div>
 
 <div class="output_area">
@@ -14423,8 +13839,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:14<00:00]
     </div>
     
 </div>
@@ -14452,8 +13868,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -14481,8 +13897,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14510,8 +13926,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14539,8 +13955,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14568,8 +13984,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:12<00:00]
     </div>
     
 </div>
@@ -14597,8 +14013,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -14626,8 +14042,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:12<00:00]
     </div>
     
 </div>
@@ -14655,8 +14071,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14684,8 +14100,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:08<00:00]
     </div>
     
 </div>
@@ -14713,8 +14129,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:13<00:00]
     </div>
     
 </div>
@@ -14742,8 +14158,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14771,8 +14187,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14800,8 +14216,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:13<00:00]
     </div>
     
 </div>
@@ -14829,8 +14245,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14858,8 +14274,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -14887,8 +14303,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14916,8 +14332,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -14945,8 +14361,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -14974,8 +14390,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -15003,8 +14419,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -15032,8 +14448,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15061,8 +14477,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15090,8 +14506,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15119,8 +14535,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -15148,8 +14564,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:12<00:00]
     </div>
     
 </div>
@@ -15177,8 +14593,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:12<00:00]
     </div>
     
 </div>
@@ -15206,8 +14622,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:14<00:00]
     </div>
     
 </div>
@@ -15235,8 +14651,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -15264,8 +14680,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -15293,8 +14709,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:10<00:00]
     </div>
     
 </div>
@@ -15322,8 +14738,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -15351,8 +14767,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:11<00:00]
     </div>
     
 </div>
@@ -15380,8 +14796,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15409,8 +14825,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15438,8 +14854,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:17<00:00]
     </div>
     
 </div>
@@ -15467,8 +14883,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:28<00:00]
     </div>
     
 </div>
@@ -15496,8 +14912,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:16<00:00]
     </div>
     
 </div>
@@ -15525,8 +14941,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:02<00:00]
     </div>
     
 </div>
@@ -15554,8 +14970,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:27<00:00]
     </div>
     
 </div>
@@ -15583,8 +14999,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:38<00:00]
     </div>
     
 </div>
@@ -15612,8 +15028,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:09<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:17<00:00]
     </div>
     
 </div>
@@ -15641,8 +15057,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:14<00:00]
     </div>
     
 </div>
@@ -15670,8 +15086,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:14<00:00]
     </div>
     
 </div>
@@ -15699,8 +15115,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:46<00:00]
     </div>
     
 </div>
@@ -15728,8 +15144,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:57<00:00]
     </div>
     
 </div>
@@ -15757,8 +15173,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:10<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:09<00:00]
     </div>
     
 </div>
@@ -15767,13 +15183,13 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[26]:</div>
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(1950, 0.10294121464738289)</pre>
+<pre>(2155, 0.2934769226190593)</pre>
 </div>
 
 </div>
@@ -15784,7 +15200,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl_learner</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
@@ -15819,8 +15235,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
                 background: #F44336;
             }
         </style>
-      <progress value='9' class='' max='9' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [9/9 00:11<00:00]
+      <progress value='54' class='' max='54' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [54/54 04:29<00:00]
     </div>
     
 </div>
@@ -15829,15 +15245,15 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;loss&#39;: 0.2687712079948849,
- &#39;fbeta&#39;: 0.9133089184761047,
- &#39;roc_auc&#39;: 0.9533236354436785}</pre>
+<pre>{&#39;loss&#39;: 0.38437828076658426,
+ &#39;fbeta&#39;: 0.3950258493423462,
+ &#39;roc_auc&#39;: 0.9113796040025547}</pre>
 </div>
 
 </div>
@@ -15848,7 +15264,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl_learner</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
@@ -15868,7 +15284,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictor</span> <span class="o">=</span> <span class="n">BertClassificationPredictor</span><span class="p">(</span>
@@ -15880,42 +15296,6 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;Une vidéo publiée sur Twitter montre plusieurs camions parés de drapeaux pro-Trump encercler et ralentir le car de Joe Biden et Kamala Harris&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[34]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;accueil/relation commerciale&#39;, 0.982572078704834),
- (&#34;temps d&#39;attente&#34;, 0.0077329580672085285),
- (&#39;cadre/atmosphère&#39;, 0.00685591297224164),
- (&#39;probleme technique&#39;, 0.006072716787457466)]</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -16414,39 +15794,6 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>[(&#39;bioagressor&#39;, 0.9492413401603699), (&#39;disease&#39;, 0.041776448488235474)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;Favorisée par les conditions climatiques,l&#39;activité du Carpocapse est toujours intense et il est conseillé de renouveler la protection des fruits en effectuant un nouveau traitement dès réception de ce bulletin.&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[25]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;bioagressor&#39;, 0.950687825679779), (&#39;disease&#39;, 0.05245519056916237)]</pre>
 </div>
 
 </div>
