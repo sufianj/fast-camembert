@@ -127,6 +127,10 @@ output/
 model/
 finetuned_model/
 
+#cache data
+cache/
+lm_cache/
+
 #DS_Store
 *.DS_Store
 .DS_Store
