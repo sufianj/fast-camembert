@@ -1,3 +1,3 @@
-# fast-(camem)bert multi-label classifiaction
-The code and data are adapted from:  https://medium.com/@vitalshchutski/french-nlp-entamez-le-camembert-avec-les-librairies-fast-bert-et-transformers-14e65f84c148 
-
+# fast-camembert
+link to the short paper: https://arxiv.org/abs/2102.00838
+7145a454adfa3890ee0e95b0b44d8a5099ceafa3
