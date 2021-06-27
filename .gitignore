@@ -124,8 +124,8 @@ output/
 */*ckpt*
 
 #models and finetuned models
-model/
-finetuned_model/
+*/model_out/
+*/tensorboard/
 
 #cache data
 cache/
