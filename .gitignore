@@ -126,10 +126,17 @@ output/
 #models and finetuned models
 model/
 finetuned_model/
+*.bin
+*.model
+*.json
+vocab.txt
 
 #cache data
 cache/
 lm_cache/
+*/data/*
+*labels*.csv
+*labels*.txt
 
 #DS_Store
 *.DS_Store
@@ -139,3 +146,4 @@ lm_cache/
 *.local
 */logs/*
 log-*.txt
+events.*
