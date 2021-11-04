@@ -137,3 +137,5 @@ lm_cache/
 
 #tensorflow events
 *.local
+*/logs/*
+log-*.txt
