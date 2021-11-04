@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\DupFolderWithoutBertModels]
+@="Duplicate folder without bert_models"
+
+[HKEY_CLASSES_ROOT\Directory\shell\DupFolderWithoutBertModels\command]
+@="C:\\\\Windows\\\\system32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe -NoExit -File \"C:\\Users\\Shufan\\Projets\\fast-camembert\\copy_without_folder.ps1\" \"%L\""

@@ -1,0 +1,5 @@
+tensorboard
+model_out
+.ipynb_checkpoints
+cache
+data
